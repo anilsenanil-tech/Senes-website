@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENS — Leather Refined · Coming Soon</title>
+<meta name="description" content="Premium leather goods handcrafted in Istanbul. From our family's LWG Gold-certified tannery to your hands. Coming soon.">
+<meta property="og:title" content="SENS — Leather Refined">
+<meta property="og:description" content="Something beautiful is coming. Premium leather from Istanbul.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #1c1a18;
+    --cream:  #faf8f4;
+    --off:    #f3efea;
+    --border: #e8e2d9;
+    --tan:    #b87a3d;
+    --tan-lt: #d4a06a;
+    --mid:    #6b6560;
+    --soft:   #9e9890;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cur {
+    width: 6px; height: 6px;
+    background: var(--tan);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width .2s, height .2s, background .2s;
+  }
+  .cur.expand { width: 32px; height: 32px; background: transparent; border: 1px solid var(--tan); }
+
+  /* GRAIN OVERLAY */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: .025;
+    z-index: 9990;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px;
+  }
+
+  /* LAYOUT */
+  .page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    animation: fadeDown .8s ease both;
+  }
+  .topbar-left {
+    font-family: 'DM Mono', monospace;
+    font-size: .58rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+  .topbar-right {
+    display: flex;
+    gap: 24px;
+  }
+  .topbar-right a {
+    font-family: 'DM Mono', monospace;
+    font-size: .58rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--soft);
+    text-decoration: none;
+    transition: color .25s;
+  }
+  .topbar-right a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 48px;
+    text-align: center;
+    position: relative;
+  }
+
+  /* Decorative vertical lines */
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .hero::before { left: 15%; }
+  .hero::after  { right: 15%; }
+
+  /* LOGO */
+  .logo-wrap {
+    margin-bottom: 48px;
+    animation: fadeUp .9s ease .1s both;
+  }
+  .logo-wordmark {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 400;
+    letter-spacing: .22em;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+  }
+  .logo-line {
+    width: 100%;
+    height: 1px;
+    background: var(--tan);
+    margin: 14px 0 10px;
+    transform-origin: left;
+    animation: expandLine 1s ease .6s both;
+  }
+  .logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: .65rem;
+    letter-spacing: .5em;
+    text-transform: uppercase;
+    color: var(--tan);
+    display: block;
+    text-align: center;
+  }
+
+  /* HEADLINE */
+  .headline {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 16px;
+    animation: fadeUp .9s ease .25s both;
+  }
+  .subline {
+    font-size: .9rem;
+    font-weight: 300;
+    color: var(--soft);
+    line-height: 1.8;
+    max-width: 420px;
+    margin-bottom: 52px;
+    animation: fadeUp .9s ease .35s both;
+  }
+
+  /* EMAIL FORM */
+  .form-wrap {
+    width: 100%;
+    max-width: 420px;
+    animation: fadeUp .9s ease .45s both;
+    margin-bottom: 52px;
+  }
+  .form-label {
+    font-family: 'DM Mono', monospace;
+    font-size: .58rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--soft);
+    display: block;
+    margin-bottom: 12px;
+    text-align: left;
+  }
+  .form-row {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    transition: border-color .25s;
+  }
+  .form-row:focus-within { border-color: var(--ink); }
+  .form-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 12px 0;
+    font-family: 'Jost', sans-serif;
+    font-size: .95rem;
+    font-weight: 300;
+    color: var(--ink);
+  }
+  .form-input::placeholder { color: var(--soft); }
+  .form-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: .58rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--tan);
+    padding: 12px 0 12px 16px;
+    transition: color .25s;
+  }
+  .form-btn:hover { color: var(--ink); }
+  .form-success {
+    display: none;
+    font-family: 'DM Mono', monospace;
+    font-size: .6rem;
+    letter-spacing: .15em;
+    color: var(--tan);
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  /* TRUST PILLS */
+  .trust-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp .9s ease .55s both;
+    margin-bottom: 60px;
+  }
+  .trust-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 16px;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: .52rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--soft);
+    transition: border-color .25s, color .25s;
+  }
+  .trust-pill:hover { border-color: var(--tan); color: var(--tan); }
+  .pill-dot {
+    width: 5px; height: 5px;
+    background: var(--tan);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* HERITAGE STRIP */
+  .heritage {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp .9s ease .65s both;
+    max-width: 600px;
+    width: 100%;
+  }
+  .her-item {
+    flex: 1;
+    padding: 20px 24px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .her-item:last-child { border-right: none; }
+  .her-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .her-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: .48rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  /* BOTTOM */
+  .bottom {
+    padding: 28px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeUp .9s ease .75s both;
+  }
+  .bottom-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: .52rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+  .bottom-social {
+    display: flex;
+    gap: 20px;
+  }
+  .bottom-social a {
+    font-family: 'DM Mono', monospace;
+    font-size: .52rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--soft);
+    text-decoration: none;
+    transition: color .25s;
+  }
+  .bottom-social a:hover { color: var(--tan); }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .topbar { padding: 20px 24px; }
+    .hero { padding: 40px 24px; }
+    .hero::before, .hero::after { display: none; }
+    .bottom { padding: 20px 24px; flex-direction: column; gap: 16px; text-align: center; }
+    .trust-row { gap: 8px; }
+    .heritage { max-width: 100%; }
+    .her-item { padding: 16px 12px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes expandLine {
+    from { transform: scaleX(0); opacity: 0; }
+    to   { transform: scaleX(1); opacity: 1; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .3; }
+  }
+  .blink { animation: blink 2.4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<div class="page">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <span class="topbar-left">Est. 1980 · Istanbul</span>
+    <nav class="topbar-right">
+      <a href="mailto:hello@sens.com">Contact</a>
+      <a href="https://instagram.com/sens.istanbul" target="_blank">Instagram</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero">
+
+    <!-- LOGO -->
+    <div class="logo-wrap">
+      <span class="logo-wordmark">SENS</span>
+      <div class="logo-line"></div>
+      <span class="logo-sub">Istanbul</span>
+    </div>
+
+    <!-- HEADLINE -->
+    <p class="headline">
+      Something beautiful is coming.
+    </p>
+    <p class="subline">
+      Premium leather goods handcrafted in Istanbul.<br>
+      From our family's tannery — to your hands.
+    </p>
+
+    <!-- EMAIL FORM -->
+    <div class="form-wrap">
+      <label class="form-label" for="email-input">Be the first to know</label>
+      <div class="form-row">
+        <input
+          type="email"
+          id="email-input"
+          class="form-input"
+          placeholder="your@email.com"
+          autocomplete="email">
+        <button class="form-btn" onclick="handleSubmit()">Notify me →</button>
+      </div>
+      <div class="form-success" id="form-success">
+        ✦ &nbsp;You're on the list. We'll be in touch.
+      </div>
+    </div>
+
+    <!-- TRUST PILLS -->
+    <div class="trust-row">
+      <div class="trust-pill"><span class="pill-dot blink"></span>LWG Gold Certified</div>
+      <div class="trust-pill"><span class="pill-dot"></span>Full-Grain Leather</div>
+      <div class="trust-pill"><span class="pill-dot"></span>Handcrafted in Istanbul</div>
+      <div class="trust-pill"><span class="pill-dot"></span>Ships Worldwide</div>
+    </div>
+
+    <!-- HERITAGE NUMBERS -->
+    <div class="heritage">
+      <div class="her-item">
+        <span class="her-num">40+</span>
+        <span class="her-lbl">Years of craft</span>
+      </div>
+      <div class="her-item">
+        <span class="her-num">LWG</span>
+        <span class="her-lbl">Gold certified</span>
+      </div>
+      <div class="her-item">
+        <span class="her-num">3</span>
+        <span class="her-lbl">Continents</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM -->
+  <footer class="bottom">
+    <span class="bottom-copy">© 2025 Sens · All rights reserved</span>
+    <nav class="bottom-social">
+      <a href="https://instagram.com/sens.istanbul" target="_blank">Instagram</a>
+      <a href="https://pinterest.com/sensleather" target="_blank">Pinterest</a>
+      <a href="mailto:hello@sens.com">hello@sens.com</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a, button, input').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('expand'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('expand'));
+});
+
+function handleSubmit() {
+  const input = document.getElementById('email-input');
+  const success = document.getElementById('form-success');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) {
+    input.style.borderBottom = '1px solid #b87a3d';
+    input.focus();
+    return;
+  }
+  input.parentElement.style.display = 'none';
+  success.style.display = 'block';
+  // Gerçek entegrasyon: buraya Mailchimp / Klaviyo API çağrısı gelecek
+  console.log('Email captured:', val);
+}
+
+document.getElementById('email-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleSubmit();
+});
+</script>
+</body>
+</html>
