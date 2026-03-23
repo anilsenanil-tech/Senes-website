@@ -368,8 +368,8 @@
   <header class="topbar">
     <span class="topbar-left">Est. 1980 · Istanbul</span>
     <nav class="topbar-right">
-      <a href="mailto:hello@sens.com">Contact</a>
-      <a href="https://instagram.com/sens.istanbul" target="_blank">Instagram</a>
+      <a href="/cdn-cgi/l/email-protection#1c74797070735c6f79726f327f7371">Contact</a>
+      <a href="https://instagram.com/sensbag" target="_blank">Instagram</a>
     </nav>
   </header>
 
@@ -437,17 +437,17 @@
 
   <!-- BOTTOM -->
   <footer class="bottom">
-    <span class="bottom-copy">© 2025 Sens · All rights reserved</span>
+    <span class="bottom-copy">© 2025 Sensbag · All rights reserved</span>
     <nav class="bottom-social">
-      <a href="https://instagram.com/sens.istanbul" target="_blank">Instagram</a>
-      <a href="https://pinterest.com/sensleather" target="_blank">Pinterest</a>
-      <a href="mailto:hello@sens.com">hello@sens.com</a>
+      <a href="https://instagram.com/sensbag" target="_blank">Instagram</a>
+      <a href="https://pinterest.com/sensbag" target="_blank">Pinterest</a>
+      <a href="/cdn-cgi/l/email-protection#ef878a838380af9c8a819cc18c8082"><span class="__cf_email__" data-cfemail="573f323b3b3817243239247934383a">[email&#160;protected]</span></a>
     </nav>
   </footer>
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const cur = document.getElementById('cur');
 document.addEventListener('mousemove', e => {
   cur.style.left = e.clientX + 'px';
@@ -467,10 +467,10 @@ function handleSubmit() {
     input.focus();
     return;
   }
+  // Gmail'e yönlendirme — mailto ile
+  window.location.href = 'mailto:anilsenanil@gmail.com?subject=Sensbag Early Access&body=Email: ' + encodeURIComponent(val);
   input.parentElement.style.display = 'none';
   success.style.display = 'block';
-  // Gerçek entegrasyon: buraya Mailchimp / Klaviyo API çağrısı gelecek
-  console.log('Email captured:', val);
 }
 
 document.getElementById('email-input').addEventListener('keydown', e => {
